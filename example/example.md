@@ -15,3 +15,8 @@ func main() {
     fmt.Println("Hello, World!")
 }
 ```
+
+| Name | Age |
+| --- | --- |
+| Alice | 30 |
+| Bob | 32 |

@@ -188,7 +188,82 @@ lorem ipsum dolor sit amet.
 		assert.NoError(t, err)
 		assert.Equal(t, expected, result)
 	})
-	
+
+	t.Run("can convert markdown table to notion table block", func(t *testing.T) {
+		markdownText := `| Name | Age |
+| --- | --- |
+| Alice | 30 |
+| Bob | 40 |`
+
+		expected := []notion.Block{
+			notion.TableBlock{
+				TableWidth:      2,
+				HasColumnHeader: true,
+				HasRowHeader:    false,
+				Children: []notion.Block{
+					notion.TableRowBlock{
+						Cells: [][]notion.RichText{
+							{
+								{
+									Type:      notion.RichTextTypeText,
+									Text:      &notion.Text{Content: "Name"},
+									PlainText: "Name",
+								},
+							},
+							{
+								{
+									Type:      notion.RichTextTypeText,
+									Text:      &notion.Text{Content: "Age"},
+									PlainText: "Age",
+								},
+							},
+						},
+					},
+					notion.TableRowBlock{
+						Cells: [][]notion.RichText{
+							{
+								{
+									Type:      notion.RichTextTypeText,
+									Text:      &notion.Text{Content: "Alice"},
+									PlainText: "Alice",
+								},
+							},
+							{
+								{
+									Type:      notion.RichTextTypeText,
+									Text:      &notion.Text{Content: "30"},
+									PlainText: "30",
+								},
+							},
+						},
+					},
+					notion.TableRowBlock{
+						Cells: [][]notion.RichText{
+							{
+								{
+									Type:      notion.RichTextTypeText,
+									Text:      &notion.Text{Content: "Bob"},
+									PlainText: "Bob",
+								},
+							},
+							{
+								{
+									Type:      notion.RichTextTypeText,
+									Text:      &notion.Text{Content: "40"},
+									PlainText: "40",
+								},
+							},
+						},
+					},
+				},
+			},
+		}
+
+		result, err := Convert(markdownText)
+		assert.NoError(t, err)
+		assert.Equal(t, expected, result)
+	})
+
 	t.Run("can handle bullet list with relative path links", func(t *testing.T) {
 		markdownText := `# How and Why Alpine Linux is used
 

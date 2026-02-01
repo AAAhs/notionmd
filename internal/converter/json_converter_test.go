@@ -80,4 +80,23 @@ This is a paragraph.
 		assert.True(t, ok)
 		assert.Equal(t, "go", code["language"])
 	})
+
+	t.Run("can convert markdown table to JSON", func(t *testing.T) {
+		markdown := `| Name | Age |
+| --- | --- |
+| Alice | 30 |
+| Bob | 32 |`
+
+		jsonBlocks, err := ConvertToJSON(markdown)
+		assert.NoError(t, err)
+		assert.Len(t, jsonBlocks, 1)
+
+		firstBlock := jsonBlocks[0]
+		_, hasTable := firstBlock["table"]
+		assert.True(t, hasTable, "First block should have table key")
+
+		table, ok := firstBlock["table"].(map[string]any)
+		assert.True(t, ok)
+		assert.Equal(t, float64(2), table["table_width"])
+	})
 }

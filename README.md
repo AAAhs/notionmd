@@ -11,7 +11,7 @@ NotionMD is a Go package that bridges the gap between Markdown and Notion. It co
 ## Features
 
 - **Markdown to Notion**: Convert Markdown documents to Notion blocks with a single function call
-- **Rich Content Support**: Handles a variety of Markdown elements including headings, links, lists, and paragraphs
+- **Rich Content Support**: Handles a variety of Markdown elements including headings, links, lists, paragraphs, and tables
 - **Large Document Handling**: Efficiently processes large documents by breaking blocks into manageable chunks
 - **Easy Integration**: Designed to work seamlessly with Notion API clients
 

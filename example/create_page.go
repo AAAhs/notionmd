@@ -5,8 +5,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/brittonhayes/notionmd"
 	"github.com/dstotijn/go-notion"
+
+	"github.com/brittonhayes/notionmd"
 )
 
 func main() {
