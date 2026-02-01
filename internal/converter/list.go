@@ -54,6 +54,11 @@ func listItemContent(node ast.Node) []notion.RichText {
 			return ast.GoToNext
 		}
 
+		if isLineBreak(n) {
+			richText = append(richText, chunk.RichText("\n", nil)...)
+			return ast.SkipChildren
+		}
+
 		if isLink(n) {
 			linkBlock := convertLinkToTextBlock(n.(*ast.Link))
 			if linkBlock != nil {

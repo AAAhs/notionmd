@@ -28,6 +28,11 @@ func Convert(markdown string) ([]notion.Block, error) {
 			return ast.GoToNext
 		}
 
+		if isHorizontalRule(node) {
+			blocks = append(blocks, convertHorizontalRule())
+			return ast.SkipChildren
+		}
+
 		if isTable(node) {
 			table := convertTable(node.(*ast.Table))
 			if table != nil {
@@ -85,6 +90,11 @@ func convertChildNodesToRichText(node ast.Node) []notion.RichText {
 
 	var blocks []notion.RichText
 	for _, child := range node.GetChildren() {
+		if isLineBreak(child) {
+			blocks = append(blocks, chunk.RichText("\n", nil)...)
+			continue
+		}
+
 		if isLink(child) {
 			linkBlock := convertLinkToTextBlock(child.(*ast.Link))
 			if linkBlock != nil {

@@ -294,6 +294,18 @@ lorem ipsum dolor sit amet.
 		assert.NoError(t, err)
 		assert.Equal(t, expected, result)
 	})
+
+	t.Run("can convert horizontal rule to divider block", func(t *testing.T) {
+		markdownText := `---`
+
+		expected := []notion.Block{
+			notion.DividerBlock{},
+		}
+
+		result, err := Convert(markdownText)
+		assert.NoError(t, err)
+		assert.Equal(t, expected, result)
+	})
 }
 
 func ExampleConvert() {
